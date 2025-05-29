@@ -25,7 +25,7 @@ function App() {
     <ErrorBoundary>
       <AppProvider>
         <NotificationProvider>
-          <Router>
+          <Router basename="/ai-audit-platform">
             <Layout>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
