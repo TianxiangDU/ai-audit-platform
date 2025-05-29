@@ -9,6 +9,7 @@ import { ProjectResults } from './pages/projects/ProjectResults';
 import { ProjectDocuments } from './pages/projects/ProjectDocuments';
 import { AuditProcess } from './pages/audit/AuditProcess';
 import { AuditTasks } from './pages/audit/AuditTasks';
+import { ResultsManagement } from './pages/results/ResultsManagement';
 import { KnowledgeBase } from './pages/knowledge/KnowledgeBase';
 import { ToolManagement } from './pages/tools/ToolManagement';
 import { SystemManagement } from './pages/system/SystemManagement';
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/projects/:id/audit-tasks" element={<AuditTasks />} />
                 <Route path="/projects/:id/results" element={<ProjectResults />} />
                 <Route path="/projects/:id/documents" element={<ProjectDocuments />} />
+                <Route path="/results" element={<ResultsManagement />} />
                 <Route path="/knowledge" element={<KnowledgeBase />} />
                 <Route path="/tools" element={<ToolManagement />} />
                 <Route path="/system" element={<SystemManagement />} />
