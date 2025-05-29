@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/ai-audit-platform/static/css/main.4a96a462.css",
-    "main.js": "/ai-audit-platform/static/js/main.cd17eef2.js",
+    "main.css": "/ai-audit-platform/static/css/main.16fab752.css",
+    "main.js": "/ai-audit-platform/static/js/main.1f7880b9.js",
     "index.html": "/ai-audit-platform/index.html"
   },
   "entrypoints": [
-    "static/css/main.4a96a462.css",
-    "static/js/main.cd17eef2.js"
+    "static/css/main.16fab752.css",
+    "static/js/main.1f7880b9.js"
   ]
 }
