@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, FileText, CheckCircle, AlertTriangle, Users, FolderOpen, Zap, Eye, Plus, Target, TrendingUp, BarChart3, Bot, List } from 'lucide-react';
+import { ArrowLeft, Calendar, FileText, CheckCircle, AlertTriangle, Users, FolderOpen, Zap, Eye, Plus, Target, TrendingUp, BarChart3, Bot, List, Search } from 'lucide-react';
 
 export const ProjectDetail = () => {
   const { id } = useParams();
@@ -340,6 +340,38 @@ export const ProjectDetail = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* 快速操作按钮 */}
+        <div className="flex flex-wrap gap-4">
+          <Link
+            to={`/projects/${project.id}/audit`}
+            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium shadow-sm"
+          >
+            <Bot className="h-5 w-5 mr-2" />
+            启动AI审计
+          </Link>
+          <Link
+            to={`/projects/${project.id}/audit-tasks`}
+            className="inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 font-medium shadow-sm"
+          >
+            <Search className="h-5 w-5 mr-2" />
+            审计任务
+          </Link>
+          <Link
+            to={`/projects/${project.id}/results`}
+            className="inline-flex items-center px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 font-medium shadow-sm"
+          >
+            <FileText className="h-5 w-5 mr-2" />
+            审计成果
+          </Link>
+          <Link
+            to={`/projects/${project.id}/documents`}
+            className="inline-flex items-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200 font-medium shadow-sm"
+          >
+            <FolderOpen className="h-5 w-5 mr-2" />
+            项目文档
+          </Link>
         </div>
       </div>
     </div>

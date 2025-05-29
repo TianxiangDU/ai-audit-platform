@@ -10,7 +10,6 @@ export const Header = () => {
   const tabs = [
     { path: '/', label: '工作台' },
     { path: '/projects', label: '项目管理' },
-    { path: '/results', label: '审计成果' },
     { path: '/knowledge', label: '审计知识库' },
     { path: '/tools', label: '审计工具' },
     { path: '/system', label: '系统管理' },
