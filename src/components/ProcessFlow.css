@@ -1,0 +1,112 @@
+.process-flow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3rem 0;
+  position: relative;
+  padding: 2rem 0;
+}
+
+.process-line {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  background: var(--light-bg);
+  padding: 1rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  flex: 1;
+  max-width: 150px;
+}
+
+.process-step:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--ai-gradient);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.process-step:hover .step-number {
+  transform: scale(1.1);
+}
+
+.step-icon {
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.step-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.step-description {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .process-flow {
+    flex-direction: column;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .process-line {
+    display: none;
+  }
+  
+  .process-step {
+    max-width: 100%;
+    width: 100%;
+    padding: 1.5rem;
+  }
+  
+  .step-number {
+    width: 60px;
+    height: 60px;
+    font-size: 1.25rem;
+  }
+  
+  .step-title {
+    font-size: 1rem;
+  }
+  
+  .step-description {
+    font-size: 0.875rem;
+  }
+} 
