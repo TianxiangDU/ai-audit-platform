@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Bot, Clock, CheckCircle, AlertTriangle, FileText, Search, Target, Zap } from 'lucide-react';
+import { X, Clock, CheckCircle, AlertTriangle, Bot } from 'lucide-react';
 
 export const AIProcessDrawer = ({ isOpen, onClose }) => {
   const [processes, setProcesses] = useState([]);
@@ -50,13 +50,29 @@ export const AIProcessDrawer = ({ isOpen, onClose }) => {
   ];
 
   useEffect(() => {
-    setProcesses(aiProcesses);
-    // 设置第一个正在运行的进程为活跃进程
-    const runningProcess = aiProcesses.find(p => p.status === 'running');
-    if (runningProcess) {
-      setActiveProcess(runningProcess.id);
+    if (isOpen) {
+      // 初始化进程数据
+      setProcesses(aiProcesses);
+      
+      const interval = setInterval(() => {
+        setProcesses(prevProcesses => 
+          prevProcesses.map(process => {
+            if (process.status === 'running' && process.progress < 100) {
+              const newProgress = Math.min(process.progress + Math.random() * 5, 100);
+              return {
+                ...process,
+                progress: newProgress,
+                status: newProgress >= 100 ? 'completed' : 'running'
+              };
+            }
+            return process;
+          })
+        );
+      }, 2000);
+
+      return () => clearInterval(interval);
     }
-  }, []);
+  }, [isOpen, aiProcesses]);
 
   const getStatusIcon = (status) => {
     switch (status) {

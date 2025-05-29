@@ -12,8 +12,9 @@ export const ProjectResults = () => {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const subProjectId = searchParams.get('subProject');
+  const tabParam = searchParams.get('tab');
   
-  const [activeTab, setActiveTab] = useState('clues');
+  const [activeTab, setActiveTab] = useState(tabParam || 'clues');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [expandedItems, setExpandedItems] = useState({});
@@ -199,7 +200,7 @@ export const ProjectResults = () => {
   ]);
 
   // 审计问题数据（属于主项目）
-  const [auditIssues, setAuditIssues] = useState([
+  const [auditIssues] = useState([
     {
       id: 1,
       title: '采购程序不规范',
@@ -239,7 +240,7 @@ export const ProjectResults = () => {
   ]);
 
   // 审计底稿数据（属于主项目）
-  const [workpapers, setWorkpapers] = useState([
+  const [workpapers] = useState([
     {
       id: 1,
       title: '投标文件一致性检查底稿',
@@ -275,7 +276,7 @@ export const ProjectResults = () => {
   ]);
 
   // 审计报告数据（属于主项目）
-  const [reports, setReports] = useState([
+  const [reports] = useState([
     {
       id: 1,
       title: '阶段性审计报告',
@@ -386,7 +387,7 @@ export const ProjectResults = () => {
     switch (activeTab) {
       case 'clues':
         return subProjectId 
-          ? auditClues.filter(clue => clue.subProjectId == subProjectId)
+          ? auditClues.filter(clue => clue.subProjectId === parseInt(subProjectId))
           : auditClues;
       case 'issues':
         return auditIssues;
