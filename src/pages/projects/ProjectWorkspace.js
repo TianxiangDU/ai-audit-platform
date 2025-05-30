@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { 
   ArrowLeft, Eye, 
   FileText, Lightbulb, Target,
   Bot, User, Download,
   Building, Calendar, Users, Play, BarChart3,
-  Upload, Camera, Image, Trash2
+  Upload, Camera, Image, Trash2, TrendingUp
 } from 'lucide-react';
 import { ProjectResults } from './ProjectResults';
 import { ProjectDocuments } from './ProjectDocuments';
+import { ProjectTrackReports } from './ProjectTrackReports';
 
 export const ProjectWorkspace = () => {
   const { id } = useParams();
@@ -30,8 +31,8 @@ export const ProjectWorkspace = () => {
     location: '某市中心区'
   };
 
-  // 子项目数据
-  const subProjects = [
+  // 子项目数据 - 使用useMemo包装避免每次渲染重新创建
+  const subProjects = useMemo(() => [
     { 
       id: 1, 
       name: '预算审计', 
@@ -59,7 +60,7 @@ export const ProjectWorkspace = () => {
       dueDate: '2024-01-15',
       auditClues: 0
     }
-  ];
+  ], []);
 
   // 从URL参数中获取子项目ID
   useEffect(() => {
@@ -171,7 +172,8 @@ export const ProjectWorkspace = () => {
     { id: 'start-audit', name: '开始审计', icon: Play },
     { id: 'audit-evidence', name: '审计证据', icon: Camera },
     { id: 'audit-results', name: '审计成果', icon: BarChart3 },
-    { id: 'project-documents', name: '项目资料', icon: FileText }
+    { id: 'project-documents', name: '项目资料', icon: FileText },
+    { id: 'track-reports', name: '跟踪报告', icon: TrendingUp }
   ];
 
   const getSeverityColor = (severity) => {
@@ -497,6 +499,7 @@ export const ProjectWorkspace = () => {
       case 'audit-evidence': return renderAuditEvidenceTab();
       case 'audit-results': return <ProjectResults />;
       case 'project-documents': return <ProjectDocuments />;
+      case 'track-reports': return <ProjectTrackReports />;
       default: return renderStartAuditTab();
     }
   };

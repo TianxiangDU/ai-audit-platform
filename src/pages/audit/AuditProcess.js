@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { 
   ArrowLeft, ArrowRight, CheckCircle, Circle, Upload, FileText, 
@@ -31,8 +31,8 @@ export const AuditProcess = () => {
     { id: 4, title: '生成审计线索', description: 'AI生成线索供后续确认', icon: AlertTriangle }
   ];
 
-  // 模拟项目数据
-  const project = {
+  // 模拟项目数据 - 使用useMemo避免每次渲染重新创建
+  const project = useMemo(() => ({
     id: parseInt(id),
     name: '建设工程项目A审计',
     subProjects: [
@@ -40,7 +40,7 @@ export const AuditProcess = () => {
       { id: 2, name: '施工过程监督', status: '进行中' },
       { id: 3, name: '竣工决算审计', status: '待开始' }
     ]
-  };
+  }), [id]);
 
   // 从URL参数中获取子项目ID
   useEffect(() => {
