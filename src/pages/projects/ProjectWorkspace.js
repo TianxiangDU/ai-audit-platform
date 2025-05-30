@@ -5,11 +5,12 @@ import {
   FileText, Lightbulb, Target,
   Bot, User, Download,
   Building, Calendar, Users, Play, BarChart3,
-  Upload, Camera, Image, Trash2, TrendingUp
+  Upload, Camera, Image, Trash2, TrendingUp, Mic
 } from 'lucide-react';
 import { ProjectResults } from './ProjectResults';
 import { ProjectDocuments } from './ProjectDocuments';
 import { ProjectTrackReports } from './ProjectTrackReports';
+import { ProjectInterviews } from './ProjectInterviews';
 
 export const ProjectWorkspace = () => {
   const { id } = useParams();
@@ -171,6 +172,7 @@ export const ProjectWorkspace = () => {
   const tabs = [
     { id: 'start-audit', name: '开始审计', icon: Play },
     { id: 'audit-evidence', name: '审计证据', icon: Camera },
+    { id: 'audit-interviews', name: '审计访谈', icon: Mic },
     { id: 'audit-results', name: '审计成果', icon: BarChart3 },
     { id: 'project-documents', name: '项目资料', icon: FileText },
     { id: 'track-reports', name: '跟踪报告', icon: TrendingUp }
@@ -497,6 +499,7 @@ export const ProjectWorkspace = () => {
     switch (activeTab) {
       case 'start-audit': return renderStartAuditTab();
       case 'audit-evidence': return renderAuditEvidenceTab();
+      case 'audit-interviews': return <ProjectInterviews />;
       case 'audit-results': return <ProjectResults />;
       case 'project-documents': return <ProjectDocuments />;
       case 'track-reports': return <ProjectTrackReports />;
