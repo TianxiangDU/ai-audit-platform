@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Search, Filter, Eye, Calendar, Users, FileText, AlertTriangle, CheckCircle, BarChart3, Zap, Target, FolderOpen, Play, Clock } from 'lucide-react';
+import { 
+  Plus, Search, Filter, Calendar, Users, FileText, AlertTriangle, CheckCircle, 
+  FolderOpen, Play, Clock, Layers, Edit, Building
+} from 'lucide-react';
 
 export const ProjectList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [editingProject, setEditingProject] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const projects = [
     {
@@ -128,6 +133,22 @@ export const ProjectList = () => {
     overdue: projects.filter(p => p.status === '即将到期').length
   };
 
+  // 处理编辑项目
+  const handleEditProject = (project) => {
+    setEditingProject({...project});
+    setShowEditModal(true);
+  };
+
+  // 保存编辑
+  const handleSaveEdit = (e) => {
+    e.preventDefault();
+    // 这里应该调用API保存项目信息
+    console.log('保存项目:', editingProject);
+    alert('项目信息已更新！');
+    setShowEditModal(false);
+    setEditingProject(null);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="space-y-6 p-6">
@@ -210,16 +231,16 @@ export const ProjectList = () => {
         </div>
 
         {/* 项目卡片网格 - 一行4个 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredProjects.map((project) => (
             <div key={project.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 group">
-              <div className="p-5">
+              <div className="p-4 sm:p-5">
                 {/* 项目头部 */}
                 <div className="mb-3">
                   <div className="flex items-start justify-between mb-2">
                     <Link
                       to={`/projects/${project.id}/workspace`}
-                      className="text-base font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-200 line-clamp-2 flex-1 mr-2"
+                      className="text-sm sm:text-base font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-200 line-clamp-2 flex-1 mr-2"
                     >
                       {project.name}
                     </Link>
@@ -227,71 +248,58 @@ export const ProjectList = () => {
                       {project.status}
                     </span>
                   </div>
-                  <p className="text-gray-600 text-sm line-clamp-2 mb-2">{project.description}</p>
+                  <p className="text-gray-600 text-xs sm:text-sm line-clamp-2 mb-2">{project.description}</p>
                   <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${getCategoryColor(project.category)}`}>
                     {project.category}
                   </span>
                 </div>
 
                 {/* 项目信息 */}
-                <div className="space-y-2 mb-4 text-xs text-gray-500">
-                  <div className="flex items-center">
-                    <Calendar className="h-3 w-3 mr-1 flex-shrink-0" />
-                    <span className="truncate">{project.startDate} - {project.endDate}</span>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-xs sm:text-sm text-gray-600">
+                    <Building className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
+                    <span>负责人：{project.manager}</span>
                   </div>
-                  <div className="flex items-center">
-                    <Users className="h-3 w-3 mr-1 flex-shrink-0" />
-                    <span className="truncate">{project.manager} 等 {project.team.length} 人</span>
+                  <div className="flex items-center text-xs sm:text-sm text-gray-600">
+                    <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
+                    <span>创建：{project.createdAt}</span>
                   </div>
-                  <div className="flex items-center">
-                    <FileText className="h-3 w-3 mr-1 flex-shrink-0" />
-                    <span>{project.subProjects} 个子项目</span>
+                  <div className="flex items-center text-xs sm:text-sm text-gray-600">
+                    <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
+                    <span>子项目：{project.subProjects}</span>
                   </div>
                 </div>
 
                 {/* 进度条 */}
                 <div className="mb-4">
                   <div className="flex justify-between text-xs text-gray-600 mb-1">
-                    <span>进度</span>
-                    <span className="font-medium">{project.progress}%</span>
+                    <span>完成进度</span>
+                    <span>{project.progress}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                  <div className="w-full bg-gray-200 rounded-full h-1.5 sm:h-2 overflow-hidden">
                     <div
-                      className={`bg-gradient-to-r ${getProgressColor(project.progress)} h-1.5 rounded-full transition-all duration-500 ease-out`}
+                      className={`bg-gradient-to-r ${getProgressColor(project.progress)} h-1.5 sm:h-2 rounded-full transition-all duration-500 ease-out`}
                       style={{ width: `${project.progress}%` }}
                     ></div>
                   </div>
                 </div>
 
-                {/* 审计成果统计 */}
-                <div className="grid grid-cols-4 gap-1 mb-4">
-                  <div className="text-center p-2 bg-amber-50 rounded border border-amber-200">
-                    <div className="text-sm font-bold text-amber-700">{project.auditResults.clues}</div>
-                    <div className="text-xs text-amber-800">线索</div>
-                  </div>
-                  <div className="text-center p-2 bg-red-50 rounded border border-red-200">
-                    <div className="text-sm font-bold text-red-700">{project.auditResults.issues}</div>
-                    <div className="text-xs text-red-800">问题</div>
-                  </div>
-                  <div className="text-center p-2 bg-blue-50 rounded border border-blue-200">
-                    <div className="text-sm font-bold text-blue-700">{project.auditResults.workpapers}</div>
-                    <div className="text-xs text-blue-800">底稿</div>
-                  </div>
-                  <div className="text-center p-2 bg-green-50 rounded border border-green-200">
-                    <div className="text-sm font-bold text-green-700">{project.auditResults.reports}</div>
-                    <div className="text-xs text-green-800">报告</div>
-                  </div>
-                </div>
-
                 {/* 操作按钮 */}
-                <div className="flex">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <Link
                     to={`/projects/${project.id}/workspace`}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium"
+                    className="flex-1 inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-xs sm:text-sm font-medium"
                   >
-                    <Eye className="h-4 w-4 mr-2" />
+                    <Layers className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                     进入工作空间
                   </Link>
+                  <button 
+                    onClick={() => handleEditProject(project)}
+                    className="inline-flex items-center justify-center px-3 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors text-xs sm:text-sm font-medium"
+                  >
+                    <Edit className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                    编辑
+                  </button>
                 </div>
               </div>
             </div>
@@ -323,6 +331,162 @@ export const ProjectList = () => {
           </div>
         )}
       </div>
+
+      {/* 编辑项目模态框 */}
+      {showEditModal && editingProject && (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <Edit className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+                      编辑项目信息
+                    </h3>
+                    <form onSubmit={handleSaveEdit} className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            项目名称
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                            value={editingProject.name}
+                            onChange={(e) => setEditingProject({...editingProject, name: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            项目状态
+                          </label>
+                          <select
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                            value={editingProject.status}
+                            onChange={(e) => setEditingProject({...editingProject, status: e.target.value})}
+                          >
+                            <option value="待开始">待开始</option>
+                            <option value="进行中">进行中</option>
+                            <option value="即将到期">即将到期</option>
+                            <option value="已完成">已完成</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          项目描述
+                        </label>
+                        <textarea
+                          rows={3}
+                          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                          value={editingProject.description}
+                          onChange={(e) => setEditingProject({...editingProject, description: e.target.value})}
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            开始日期
+                          </label>
+                          <input
+                            type="date"
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                            value={editingProject.startDate}
+                            onChange={(e) => setEditingProject({...editingProject, startDate: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            结束日期
+                          </label>
+                          <input
+                            type="date"
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                            value={editingProject.endDate}
+                            onChange={(e) => setEditingProject({...editingProject, endDate: e.target.value})}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            项目经理
+                          </label>
+                          <input
+                            type="text"
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                            value={editingProject.manager}
+                            onChange={(e) => setEditingProject({...editingProject, manager: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            项目类别
+                          </label>
+                          <select
+                            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                            value={editingProject.category}
+                            onChange={(e) => setEditingProject({...editingProject, category: e.target.value})}
+                          >
+                            <option value="工程审计">工程审计</option>
+                            <option value="采购审计">采购审计</option>
+                            <option value="投资审计">投资审计</option>
+                            <option value="财政审计">财政审计</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          项目进度 (%)
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="100"
+                          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                          value={editingProject.progress}
+                          onChange={(e) => setEditingProject({...editingProject, progress: parseInt(e.target.value)})}
+                        />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button
+                  type="button"
+                  onClick={handleSaveEdit}
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  保存更改
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowEditModal(false);
+                    setEditingProject(null);
+                  }}
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  取消
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }; 

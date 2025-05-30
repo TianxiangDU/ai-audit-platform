@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { 
   ArrowLeft, ArrowRight, CheckCircle, Circle, Upload, FileText, 
   Play, Eye, Edit, Settings, Target, FileCheck, AlertTriangle,
@@ -9,6 +9,7 @@ import {
 export const AuditProcess = () => {
   const { id } = useParams(); // 项目ID
   const navigate = useNavigate();
+  const location = useLocation();
   const [currentStep, setCurrentStep] = useState(1);
   const [auditTaskData, setAuditTaskData] = useState({
     subProjectId: null,
@@ -40,6 +41,23 @@ export const AuditProcess = () => {
       { id: 3, name: '竣工决算审计', status: '待开始' }
     ]
   };
+
+  // 从URL参数中获取子项目ID
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const subProjectId = urlParams.get('subProject');
+    
+    if (subProjectId) {
+      const subProjectIdInt = parseInt(subProjectId);
+      const subProject = project.subProjects.find(sp => sp.id === subProjectIdInt);
+      if (subProject) {
+        setAuditTaskData(prev => ({
+          ...prev,
+          subProjectId: subProjectIdInt
+        }));
+      }
+    }
+  }, [location.search, project.subProjects]);
 
   // 审计板块和对应的审计逻辑
   const auditModules = {

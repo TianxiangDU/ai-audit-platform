@@ -3,7 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { 
   ArrowLeft, Upload, FileText, ChevronDown, ChevronRight, 
   Download, Edit, Trash2, Search, Filter, Plus, Calendar, 
-  User, Tag, DollarSign, Building, FileCheck, AlertTriangle
+  User, Tag, DollarSign, Building, FileCheck, AlertTriangle,
+  Share2, Copy, ExternalLink, CheckCircle, X
 } from 'lucide-react';
 
 export const ProjectDocuments = () => {
@@ -14,6 +15,16 @@ export const ProjectDocuments = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [editingDocument, setEditingDocument] = useState(null);
   const [editingKeyInfo, setEditingKeyInfo] = useState({});
+  const [shareSettings, setShareSettings] = useState({
+    enableShare: false,
+    shareLink: '',
+    expireDate: '',
+    allowedTypes: ['pdf', 'doc', 'xls', 'image'],
+    maxFileSize: 100, // MB
+    requireApproval: true
+  });
+  const [shareUrl, setShareUrl] = useState('');
+  const [showCopySuccess, setShowCopySuccess] = useState(false);
 
   // 文件类别定义及其关键信息字段
   const documentCategories = {
@@ -321,6 +332,39 @@ export const ProjectDocuments = () => {
     }));
   };
 
+  // 生成分享链接
+  const generateShareLink = () => {
+    const shareId = Math.random().toString(36).substring(2, 15);
+    const newShareUrl = `${window.location.origin}/share/upload/${shareId}`;
+    setShareUrl(newShareUrl);
+    setShareSettings(prev => ({
+      ...prev,
+      enableShare: true,
+      shareLink: shareId
+    }));
+  };
+
+  // 复制分享链接
+  const copyShareLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setShowCopySuccess(true);
+      setTimeout(() => setShowCopySuccess(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  };
+
+  // 禁用分享
+  const disableShare = () => {
+    setShareSettings(prev => ({
+      ...prev,
+      enableShare: false,
+      shareLink: ''
+    }));
+    setShareUrl('');
+  };
+
   return (
     <div className="space-y-6">
       {/* 页面头部 */}
@@ -343,12 +387,133 @@ export const ProjectDocuments = () => {
       {/* 文件上传区域 */}
       <div className="bg-white shadow rounded-lg">
         <div className="px-6 py-5 border-b border-gray-200">
-          <h3 className="text-lg leading-6 font-medium text-gray-900 flex items-center">
-            <Upload className="h-5 w-5 mr-2" />
-            上传新文件
-          </h3>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <Upload className="h-5 w-5 mr-2" />
+              <div>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">上传新文件</h3>
+                <p className="mt-1 text-sm text-gray-500">上传项目相关的文档资料</p>
+              </div>
+            </div>
+            <div className="flex space-x-2">
+              {!shareSettings.enableShare ? (
+                <button
+                  type="button"
+                  onClick={generateShareLink}
+                  className="inline-flex items-center px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm"
+                >
+                  <Share2 className="h-4 w-4 mr-2" />
+                  生成分享链接
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={disableShare}
+                  className="inline-flex items-center px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm"
+                >
+                  <X className="h-4 w-4 mr-2" />
+                  关闭分享
+                </button>
+              )}
+            </div>
+          </div>
         </div>
         <div className="p-6">
+          {/* 分享链接设置 */}
+          {shareSettings.enableShare && (
+            <div className="mb-6 bg-purple-50 border border-purple-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="font-medium text-purple-900">外部上传链接</h4>
+                <span className="text-xs text-purple-700 bg-purple-100 px-2 py-1 rounded">已启用</span>
+              </div>
+              <p className="text-sm text-purple-800 mb-3">
+                通过此链接，外部人员可以直接上传文件到项目资料库
+              </p>
+              
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    value={shareUrl}
+                    readOnly
+                    className="flex-1 text-sm bg-white border border-gray-300 rounded px-3 py-2 text-gray-600"
+                  />
+                  <button
+                    type="button"
+                    onClick={copyShareLink}
+                    className="inline-flex items-center px-3 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 text-sm"
+                  >
+                    {showCopySuccess ? (
+                      <>
+                        <CheckCircle className="h-4 w-4 mr-1" />
+                        已复制
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-4 w-4 mr-1" />
+                        复制
+                      </>
+                    )}
+                  </button>
+                  <a
+                    href={shareUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-3 py-2 bg-purple-50 text-purple-700 border border-purple-200 rounded hover:bg-purple-100 text-sm"
+                  >
+                    <ExternalLink className="h-4 w-4 mr-1" />
+                    预览
+                  </a>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <label className="block text-purple-700 mb-1">链接有效期</label>
+                    <input
+                      type="date"
+                      value={shareSettings.expireDate}
+                      onChange={(e) => setShareSettings(prev => ({ ...prev, expireDate: e.target.value }))}
+                      className="w-full border border-gray-300 rounded px-2 py-1 text-xs"
+                      min={new Date().toISOString().split('T')[0]}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-purple-700 mb-1">最大文件大小 (MB)</label>
+                    <select
+                      value={shareSettings.maxFileSize}
+                      onChange={(e) => setShareSettings(prev => ({ ...prev, maxFileSize: parseInt(e.target.value) }))}
+                      className="w-full border border-gray-300 rounded px-2 py-1 text-xs"
+                    >
+                      <option value={10}>10 MB</option>
+                      <option value={20}>20 MB</option>
+                      <option value={50}>50 MB</option>
+                      <option value={100}>100 MB</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4 text-sm">
+                  <label className="flex items-center text-purple-700">
+                    <input
+                      type="checkbox"
+                      checked={shareSettings.requireApproval}
+                      onChange={(e) => setShareSettings(prev => ({ ...prev, requireApproval: e.target.checked }))}
+                      className="mr-2 rounded text-purple-600"
+                    />
+                    需要审核批准
+                  </label>
+                </div>
+                
+                <div className="text-xs text-purple-600 space-y-1">
+                  <p>• 外部用户通过此链接可直接上传文件，无需账号登录</p>
+                  <p>• 上传的文件将保存到当前项目的资料库中</p>
+                  <p>• 可设置链接有效期和文件大小限制</p>
+                  {shareSettings.requireApproval && <p>• 上传的文件需要项目管理员审核后才会显示</p>}
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
             <Upload className="mx-auto h-12 w-12 text-gray-400" />
             <div className="mt-4">

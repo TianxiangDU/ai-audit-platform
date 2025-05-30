@@ -3,7 +3,7 @@ import { Home, Wrench, FileText, BarChart2 } from 'lucide-react';
 
 export const Sidebar = () => {
   const menuItems = [
-    { icon: Home, label: '工作台', active: true },
+    { icon: Home, label: '首页', active: true },
     { icon: Wrench, label: '审计工具' },
     { icon: FileText, label: '项目管理' },
     { icon: BarChart2, label: '数据分析' },
