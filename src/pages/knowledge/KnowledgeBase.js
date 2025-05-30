@@ -411,7 +411,7 @@ export const KnowledgeBase = () => {
                 <Globe className="h-4 w-4 mr-2" />
                 在线法规搜索
               </h4>
-              <div className="flex space-x-2">
+              <div className="flex space-x-2 mb-3">
                 <input
                   type="text"
                   placeholder="输入关键词搜索最新法律法规..."
@@ -427,6 +427,26 @@ export const KnowledgeBase = () => {
                   <ExternalLink className="h-4 w-4 mr-1" />
                   外网搜索
                 </button>
+              </div>
+              
+              {/* 国家法律法规数据库快速访问 */}
+              <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-blue-200">
+                <div className="flex items-center">
+                  <Scale className="h-5 w-5 text-blue-600 mr-3" />
+                  <div>
+                    <h5 className="text-sm font-medium text-gray-900">国家法律法规数据库</h5>
+                    <p className="text-xs text-gray-600">全国人大常委会官方法规数据库</p>
+                  </div>
+                </div>
+                <a
+                  href="https://flk.npc.gov.cn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-sm"
+                >
+                  <ExternalLink className="h-4 w-4 mr-1" />
+                  进入官网
+                </a>
               </div>
             </div>
 
@@ -516,58 +536,58 @@ export const KnowledgeBase = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="space-y-8 p-6">
+      <div className="space-y-6 p-6">
         {/* 页面标题 */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">审计知识库</h1>
-              <p className="text-gray-600">管理审计逻辑、案例和法规，构建智能审计知识体系</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">知识库</h1>
+              <p className="text-gray-600 text-sm">审计逻辑、案例库和法规资源管理</p>
             </div>
-            <button className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm">
-              <Plus className="h-5 w-5 mr-2" />
+            <button className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm text-sm">
+              <Plus className="h-4 w-4 mr-2" />
               新增内容
             </button>
           </div>
         </div>
 
-        {/* 统计概览 */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+        {/* 统计卡片 */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">审计逻辑</p>
-                <p className="text-2xl font-bold text-gray-900">{logicItems.length}</p>
-                <p className="text-sm text-green-600 font-medium">+2 本月新增</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">审计逻辑</p>
+                <p className="text-lg font-bold text-gray-900">{logicItems.length}</p>
+                <p className="text-xs text-green-600 font-medium">+2 本月新增</p>
               </div>
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <BookOpen className="h-6 w-6 text-blue-600" />
+              <div className="bg-blue-50 p-2 rounded-lg">
+                <BookOpen className="h-4 w-4 text-blue-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">审计案例</p>
-                <p className="text-2xl font-bold text-gray-900">{caseItems.length}</p>
-                <p className="text-sm text-green-600 font-medium">+1 本月新增</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">审计案例</p>
+                <p className="text-lg font-bold text-gray-900">{caseItems.length}</p>
+                <p className="text-xs text-green-600 font-medium">+1 本月新增</p>
               </div>
-              <div className="bg-amber-50 p-3 rounded-lg">
-                <FileText className="h-6 w-6 text-amber-600" />
+              <div className="bg-amber-50 p-2 rounded-lg">
+                <FileText className="h-4 w-4 text-amber-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">法规条目</p>
-                <p className="text-2xl font-bold text-gray-900">{regulationItems.length}</p>
-                <p className="text-sm text-green-600 font-medium">实时更新</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">法规条目</p>
+                <p className="text-lg font-bold text-gray-900">{regulationItems.length}</p>
+                <p className="text-xs text-green-600 font-medium">实时更新</p>
               </div>
-              <div className="bg-slate-50 p-3 rounded-lg">
-                <Scale className="h-6 w-6 text-slate-600" />
+              <div className="bg-slate-50 p-2 rounded-lg">
+                <Scale className="h-4 w-4 text-slate-600" />
               </div>
             </div>
           </div>
@@ -577,12 +597,12 @@ export const KnowledgeBase = () => {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
           {/* 选项卡 */}
           <div className="border-b border-gray-200">
-            <nav className="flex space-x-8 px-8">
+            <nav className="flex space-x-8 px-6">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
+                  className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
                     activeTab === tab.id
                       ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -598,21 +618,21 @@ export const KnowledgeBase = () => {
           </div>
 
           {/* 搜索和筛选 */}
-          <div className="px-8 py-6 border-b border-gray-200">
+          <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center space-x-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
                   type="text"
                   placeholder="搜索知识库内容..."
-                  className="pl-10 w-full h-12 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  className="pl-10 w-full h-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
               <div className="relative">
-                <Filter className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <select className="pl-10 h-12 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white">
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <select className="pl-10 h-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white text-sm min-w-[120px]">
                   <option value="">所有分类</option>
                   <option value="financial">财务审计</option>
                   <option value="procurement">采购审计</option>
@@ -624,7 +644,7 @@ export const KnowledgeBase = () => {
           </div>
 
           {/* 内容区域 */}
-          <div className="p-8">
+          <div className="p-6">
             {renderContent()}
           </div>
         </div>

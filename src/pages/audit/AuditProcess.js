@@ -22,14 +22,12 @@ export const AuditProcess = () => {
     auditWorkpapers: []
   });
 
-  // 审计流程步骤定义
+  // 审计流程步骤定义 - 简化为4步
   const steps = [
     { id: 1, title: '选择审计范围', description: '选择子项目和审计板块', icon: Target },
     { id: 2, title: '关联审计资料', description: '上传或关联项目文件', icon: FileText },
     { id: 3, title: '执行AI审计', description: '运行审计逻辑分析', icon: Zap },
-    { id: 4, title: '确认审计线索', description: '审核AI生成的线索', icon: AlertTriangle },
-    { id: 5, title: '生成审计问题', description: '编辑和确认问题', icon: Edit },
-    { id: 6, title: '生成审计底稿', description: '完成审计文档', icon: FileCheck }
+    { id: 4, title: '生成审计线索', description: 'AI生成线索供后续确认', icon: AlertTriangle }
   ];
 
   // 模拟项目数据
@@ -185,10 +183,6 @@ export const AuditProcess = () => {
         return <Step3ExecuteAudit />;
       case 4:
         return <Step4ConfirmClues />;
-      case 5:
-        return <Step5GenerateIssues />;
-      case 6:
-        return <Step6GenerateWorkpapers />;
       default:
         return null;
     }
@@ -237,69 +231,68 @@ export const AuditProcess = () => {
       </div>
 
       {/* 选择审计板块 */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="px-8 py-6 bg-gradient-to-r from-purple-50 to-pink-50 border-b border-gray-200">
-          <h3 className="text-xl font-bold text-gray-900">选择审计板块</h3>
-          <p className="text-gray-600 mt-1">选择要执行的审计板块和具体审计逻辑</p>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">选择审计板块</h3>
+          <p className="text-gray-600 text-sm mt-1">选择要执行的审计板块和具体审计逻辑</p>
         </div>
-        <div className="p-8">
-          <div className="space-y-6">
+        <div className="p-6">
+          <div className="space-y-4">
             {Object.entries(auditModules).map(([moduleKey, module]) => {
               const isModuleSelected = auditTaskData.selectedModules.includes(moduleKey);
               return (
-                <div key={moduleKey} className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+                <div key={moduleKey} className="border border-gray-200 rounded-lg hover:shadow-sm transition-all duration-200">
                   <div
-                    className={`p-6 cursor-pointer transition-all duration-300 ${
+                    className={`p-4 cursor-pointer transition-all duration-200 ${
                       isModuleSelected 
-                        ? `bg-gradient-to-r ${module.bgGradient} border-l-4 border-l-blue-500` 
+                        ? 'bg-blue-50 border-l-4 border-l-blue-500' 
                         : 'bg-white hover:bg-gray-50'
                     }`}
                     onClick={() => handleModuleSelect(moduleKey)}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className={`text-4xl p-3 rounded-2xl ${isModuleSelected ? 'bg-white shadow-sm' : 'bg-gray-100'}`}>
+                      <div className="flex items-center space-x-3">
+                        <div className={`text-2xl p-2 rounded-lg ${isModuleSelected ? 'bg-white shadow-sm' : 'bg-gray-100'}`}>
                           {module.icon}
                         </div>
                         <div>
-                          <h4 className="text-xl font-bold text-gray-900">{module.name}</h4>
-                          <p className="text-gray-600 mt-1">
+                          <h4 className="text-base font-semibold text-gray-900">{module.name}</h4>
+                          <p className="text-gray-600 text-sm">
                             包含 {module.logics.length} 个审计逻辑
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-2">
                         {isModuleSelected && (
-                          <div className="bg-blue-500 rounded-full p-2">
-                            <CheckCircle className="h-6 w-6 text-white" />
+                          <div className="bg-blue-500 rounded-full p-1">
+                            <CheckCircle className="h-4 w-4 text-white" />
                           </div>
                         )}
-                        <Circle className="h-5 w-5 text-gray-400" />
                       </div>
                     </div>
                   </div>
                   
                   {isModuleSelected && (
-                    <div className="px-6 pb-6 bg-gray-50">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 pt-4 border-t border-gray-200">
+                    <div className="px-4 pb-4 bg-gray-50">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 pt-3 border-t border-gray-200">
                         {module.logics.map((logic) => {
                           const isLogicSelected = auditTaskData.selectedLogics.includes(logic.id);
                           return (
                             <div
                               key={logic.id}
-                              className={`group p-4 border rounded-xl cursor-pointer transition-all duration-300 ${
+                              className={`group p-3 border rounded-lg cursor-pointer transition-all duration-200 ${
                                 isLogicSelected
-                                  ? `border-blue-300 bg-gradient-to-br ${module.bgGradient} shadow-md transform -translate-y-1`
-                                  : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm hover:-translate-y-0.5'
+                                  ? 'border-blue-300 bg-blue-50 shadow-sm'
+                                  : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
                               }`}
                               onClick={() => handleLogicSelect(logic.id)}
                             >
                               <div className="flex items-start justify-between">
                                 <div className="flex-1">
-                                  <h5 className="font-semibold text-gray-900 mb-2">
+                                  <h5 className="font-medium text-gray-900 text-sm mb-1">
                                     {logic.name}
                                   </h5>
-                                  <p className="text-sm text-gray-600 leading-relaxed">
+                                  <p className="text-xs text-gray-600 leading-relaxed">
                                     {logic.description}
                                   </p>
                                 </div>
@@ -491,7 +484,7 @@ export const AuditProcess = () => {
     </div>
   );
 
-  // 步骤4：确认审计线索
+  // 步骤4：生成审计线索
   const Step4ConfirmClues = () => (
     <div className="space-y-8">
       <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
@@ -539,155 +532,6 @@ export const AuditProcess = () => {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  // 步骤5：生成审计问题
-  const Step5GenerateIssues = () => (
-    <div className="space-y-8">
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="px-8 py-6 bg-gradient-to-r from-red-50 to-pink-50 border-b border-gray-200">
-          <h3 className="text-xl font-bold text-gray-900">生成审计问题</h3>
-          <p className="text-gray-600 mt-1">基于确认的线索编辑和完善审计问题</p>
-        </div>
-        <div className="p-8">
-          <div className="space-y-8">
-            {[1, 2].map((index) => (
-              <div key={index} className="border border-gray-200 rounded-2xl p-6 bg-white shadow-sm">
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
-                      问题标题
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                      defaultValue={`审计问题 ${index}：预算编制不规范`}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
-                      问题描述
-                    </label>
-                    <textarea
-                      rows="4"
-                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                      defaultValue="发现部分材料价格超出市场指导价，存在预算编制不规范的问题..."
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">
-                        风险等级
-                      </label>
-                      <select className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
-                        <option>高风险</option>
-                        <option>中风险</option>
-                        <option>低风险</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">
-                        涉及金额
-                      </label>
-                      <input
-                        type="number"
-                        className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                        placeholder="0"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  // 步骤6：生成审计底稿
-  const Step6GenerateWorkpapers = () => (
-    <div className="space-y-8">
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="px-8 py-6 bg-gradient-to-r from-green-50 to-teal-50 border-b border-gray-200">
-          <h3 className="text-xl font-bold text-gray-900">生成审计底稿</h3>
-          <p className="text-gray-600 mt-1">完成审计任务，生成最终审计底稿</p>
-        </div>
-        <div className="p-8">
-          <div className="space-y-8">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                底稿标题
-              </label>
-              <input
-                type="text"
-                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                defaultValue="建设工程项目A预算审计底稿"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                审计概况
-              </label>
-              <textarea
-                rows="4"
-                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                defaultValue="本次审计针对建设工程项目A的预算编制进行全面审查，重点关注预算的合规性、准确性和完整性..."
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                审计发现（基于已确认的问题自动生成）
-              </label>
-              <div className="border-2 border-gray-200 rounded-xl p-6 bg-gray-50">
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-4 p-4 bg-white rounded-xl border border-red-200">
-                    <AlertTriangle className="h-6 w-6 text-red-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h5 className="font-semibold text-gray-900 mb-2">问题1：预算编制不规范</h5>
-                      <p className="text-gray-600 leading-relaxed">
-                        发现部分材料价格超出市场指导价，涉及金额约50万元...
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4 p-4 bg-white rounded-xl border border-orange-200">
-                    <AlertTriangle className="h-6 w-6 text-orange-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <h5 className="font-semibold text-gray-900 mb-2">问题2：工程量计算偏差</h5>
-                      <p className="text-gray-600 leading-relaxed">
-                        部分分项工程量计算存在偏差，建议重新核算...
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                审计建议
-              </label>
-              <textarea
-                rows="6"
-                className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                defaultValue="1. 建议重新核实材料价格，确保符合市场指导价标准；&#10;2. 完善预算编制程序，加强内部审核机制；&#10;3. 建立价格信息收集和更新机制..."
-              />
-            </div>
-
-            <div className="flex justify-between pt-6 border-t border-gray-200">
-              <button className="inline-flex items-center px-6 py-3 border-2 border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors duration-200 font-semibold">
-                保存草稿
-              </button>
-              <button className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-200 transform hover:scale-105 shadow-lg font-semibold">
-                完成审计任务
-              </button>
-            </div>
           </div>
         </div>
       </div>

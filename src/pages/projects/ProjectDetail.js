@@ -373,6 +373,41 @@ export const ProjectDetail = () => {
             </div>
           </div>
         </div>
+
+        {/* 快速操作和工作空间入口 */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">工作空间</h3>
+            <Link
+              to={`/projects/${id}/workspace`}
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
+            >
+              <Target className="h-4 w-4 mr-2" />
+              进入工作空间
+            </Link>
+          </div>
+          <p className="text-gray-600 text-sm mb-4">
+            在工作空间中进行审计线索分析、问题确认、底稿编写和报告生成等核心审计工作
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center p-3 bg-gray-50 rounded-lg">
+              <div className="text-lg font-bold text-blue-600">12</div>
+              <div className="text-xs text-gray-600">审计线索</div>
+            </div>
+            <div className="text-center p-3 bg-gray-50 rounded-lg">
+              <div className="text-lg font-bold text-red-600">3</div>
+              <div className="text-xs text-gray-600">审计问题</div>
+            </div>
+            <div className="text-center p-3 bg-gray-50 rounded-lg">
+              <div className="text-lg font-bold text-green-600">2</div>
+              <div className="text-xs text-gray-600">审计底稿</div>
+            </div>
+            <div className="text-center p-3 bg-gray-50 rounded-lg">
+              <div className="text-lg font-bold text-purple-600">1</div>
+              <div className="text-xs text-gray-600">审计报告</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

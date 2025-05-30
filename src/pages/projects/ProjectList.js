@@ -130,225 +130,174 @@ export const ProjectList = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="space-y-8 p-6">
-        {/* 页面标题 - 简化设计 */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-          <div className="flex justify-between items-center">
+      <div className="space-y-6 p-6">
+        {/* 顶部控制区域 - 合并设计 */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          {/* 标题和新建按钮 */}
+          <div className="flex justify-between items-start mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">项目管理</h1>
-              <p className="text-gray-600">管理和跟踪您的工程审计项目</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">项目管理</h1>
+              <p className="text-gray-600 text-sm">管理和跟踪您的工程审计项目</p>
             </div>
             <Link
               to="/projects/new"
-              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm text-sm"
             >
-              <Plus className="h-5 w-5 mr-2" />
+              <Plus className="h-4 w-4 mr-2" />
               新建项目
             </Link>
           </div>
-        </div>
 
-        {/* 统计概览 - 简化设计 */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">总项目数</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
-              </div>
-              <div className="bg-slate-50 p-3 rounded-lg">
-                <FolderOpen className="h-6 w-6 text-slate-600" />
-              </div>
+          {/* 统计数据 */}
+          <div className="grid grid-cols-5 gap-4 mb-6">
+            <div className="text-center p-2 bg-slate-50 rounded-lg">
+              <FolderOpen className="h-4 w-4 text-slate-600 mx-auto mb-1" />
+              <div className="text-base font-bold text-gray-900">{stats.total}</div>
+              <div className="text-xs text-gray-600">总项目</div>
+            </div>
+            <div className="text-center p-2 bg-blue-50 rounded-lg">
+              <Play className="h-4 w-4 text-blue-600 mx-auto mb-1" />
+              <div className="text-base font-bold text-gray-900">{stats.inProgress}</div>
+              <div className="text-xs text-gray-600">进行中</div>
+            </div>
+            <div className="text-center p-2 bg-gray-50 rounded-lg">
+              <Clock className="h-4 w-4 text-gray-600 mx-auto mb-1" />
+              <div className="text-base font-bold text-gray-900">{stats.pending}</div>
+              <div className="text-xs text-gray-600">待开始</div>
+            </div>
+            <div className="text-center p-2 bg-green-50 rounded-lg">
+              <CheckCircle className="h-4 w-4 text-green-600 mx-auto mb-1" />
+              <div className="text-base font-bold text-gray-900">{stats.completed}</div>
+              <div className="text-xs text-gray-600">已完成</div>
+            </div>
+            <div className="text-center p-2 bg-red-50 rounded-lg">
+              <AlertTriangle className="h-4 w-4 text-red-600 mx-auto mb-1" />
+              <div className="text-base font-bold text-gray-900">{stats.overdue}</div>
+              <div className="text-xs text-gray-600">逾期</div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">进行中</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.inProgress}</p>
-              </div>
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <Play className="h-6 w-6 text-blue-600" />
-              </div>
+          {/* 搜索和筛选 */}
+          <div className="flex items-center space-x-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <input
+                type="text"
+                placeholder="搜索项目名称或描述..."
+                className="pl-10 w-full h-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">待开始</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
-              </div>
-              <div className="bg-gray-50 p-3 rounded-lg">
-                <Clock className="h-6 w-6 text-gray-600" />
-              </div>
+            <div className="relative">
+              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <select
+                className="pl-10 pr-8 h-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white text-sm min-w-[120px]"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+              >
+                <option value="all">所有状态</option>
+                <option value="进行中">进行中</option>
+                <option value="待开始">待开始</option>
+                <option value="即将到期">即将到期</option>
+                <option value="已完成">已完成</option>
+              </select>
             </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">已完成</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.completed}</p>
-              </div>
-              <div className="bg-green-50 p-3 rounded-lg">
-                <CheckCircle className="h-6 w-6 text-green-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">逾期项目</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.overdue}</p>
-              </div>
-              <div className="bg-red-50 p-3 rounded-lg">
-                <AlertTriangle className="h-6 w-6 text-red-600" />
-              </div>
+            <div className="text-sm text-gray-600">
+              找到 <span className="font-medium text-blue-600">{filteredProjects.length}</span> 个项目
             </div>
           </div>
         </div>
 
-        {/* 搜索和筛选 - 简化设计 */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-          <div className="p-8">
-            <div className="mb-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-1">搜索和筛选</h3>
-              <p className="text-gray-600 text-sm">快速找到您需要的项目</p>
-            </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="搜索项目名称或描述..."
-                  className="pl-12 w-full h-12 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-              <div className="relative">
-                <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <select
-                  className="pl-12 w-full h-12 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white"
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                >
-                  <option value="all">所有状态</option>
-                  <option value="进行中">进行中</option>
-                  <option value="待开始">待开始</option>
-                  <option value="即将到期">即将到期</option>
-                  <option value="已完成">已完成</option>
-                </select>
-              </div>
-              <div className="flex items-center justify-center lg:justify-end">
-                <span className="text-sm text-gray-600">
-                  找到 <span className="font-semibold text-blue-600">{filteredProjects.length}</span> 个项目
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 项目列表 - 简化设计 */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        {/* 项目卡片网格 - 一行4个 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredProjects.map((project) => (
-            <div key={project.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-200">
-              <div className="p-8">
-                {/* 项目头部信息 */}
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <Link
-                        to={`/projects/${project.id}`}
-                        className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors duration-200"
-                      >
-                        {project.name}
-                      </Link>
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(project.status)}`}>
-                        {project.status}
-                      </span>
-                    </div>
-                    <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
-                    
-                    <div className="flex items-center space-x-4 text-sm mb-4">
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(project.category)}`}>
-                        {project.category}
-                      </span>
-                      <span className="flex items-center text-gray-500">
-                        <Calendar className="h-4 w-4 mr-1" />
-                        {project.startDate} - {project.endDate}
-                      </span>
-                    </div>
+            <div key={project.id} className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 group">
+              <div className="p-5">
+                {/* 项目头部 */}
+                <div className="mb-3">
+                  <div className="flex items-start justify-between mb-2">
+                    <Link
+                      to={`/projects/${project.id}`}
+                      className="text-base font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-200 line-clamp-2 flex-1 mr-2"
+                    >
+                      {project.name}
+                    </Link>
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border flex-shrink-0 ${getStatusColor(project.status)}`}>
+                      {project.status}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 text-sm line-clamp-2 mb-2">{project.description}</p>
+                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${getCategoryColor(project.category)}`}>
+                    {project.category}
+                  </span>
+                </div>
 
-                    <div className="flex items-center space-x-6 text-sm text-gray-500 mb-6">
-                      <span className="flex items-center">
-                        <Users className="h-4 w-4 mr-2" />
-                        {project.manager} 等 {project.team.length} 人
-                      </span>
-                      <span className="flex items-center">
-                        <FileText className="h-4 w-4 mr-2" />
-                        {project.subProjects} 个子项目
-                      </span>
-                    </div>
+                {/* 项目信息 */}
+                <div className="space-y-2 mb-4 text-xs text-gray-500">
+                  <div className="flex items-center">
+                    <Calendar className="h-3 w-3 mr-1 flex-shrink-0" />
+                    <span className="truncate">{project.startDate} - {project.endDate}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Users className="h-3 w-3 mr-1 flex-shrink-0" />
+                    <span className="truncate">{project.manager} 等 {project.team.length} 人</span>
+                  </div>
+                  <div className="flex items-center">
+                    <FileText className="h-3 w-3 mr-1 flex-shrink-0" />
+                    <span>{project.subProjects} 个子项目</span>
                   </div>
                 </div>
 
-                {/* 项目进度条 */}
-                <div className="mb-6">
-                  <div className="flex justify-between text-sm text-gray-600 mb-2">
-                    <span className="font-medium">项目进度</span>
-                    <span className="font-bold">{project.progress}%</span>
+                {/* 进度条 */}
+                <div className="mb-4">
+                  <div className="flex justify-between text-xs text-gray-600 mb-1">
+                    <span>进度</span>
+                    <span className="font-medium">{project.progress}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
                     <div
-                      className={`bg-gradient-to-r ${getProgressColor(project.progress)} h-2 rounded-full transition-all duration-700 ease-out`}
+                      className={`bg-gradient-to-r ${getProgressColor(project.progress)} h-1.5 rounded-full transition-all duration-500 ease-out`}
                       style={{ width: `${project.progress}%` }}
                     ></div>
                   </div>
                 </div>
 
                 {/* 审计成果统计 */}
-                <div className="grid grid-cols-4 gap-4 mb-6">
-                  <div className="text-center p-3 bg-amber-50 rounded-lg border border-amber-200">
-                    <AlertTriangle className="h-5 w-5 text-amber-600 mx-auto mb-1" />
-                    <div className="text-lg font-bold text-amber-700">{project.auditResults.clues}</div>
+                <div className="grid grid-cols-4 gap-1 mb-4">
+                  <div className="text-center p-2 bg-amber-50 rounded border border-amber-200">
+                    <div className="text-sm font-bold text-amber-700">{project.auditResults.clues}</div>
                     <div className="text-xs text-amber-800">线索</div>
                   </div>
-                  <div className="text-center p-3 bg-red-50 rounded-lg border border-red-200">
-                    <AlertTriangle className="h-5 w-5 text-red-600 mx-auto mb-1" />
-                    <div className="text-lg font-bold text-red-700">{project.auditResults.issues}</div>
+                  <div className="text-center p-2 bg-red-50 rounded border border-red-200">
+                    <div className="text-sm font-bold text-red-700">{project.auditResults.issues}</div>
                     <div className="text-xs text-red-800">问题</div>
                   </div>
-                  <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-200">
-                    <FileText className="h-5 w-5 text-blue-600 mx-auto mb-1" />
-                    <div className="text-lg font-bold text-blue-700">{project.auditResults.workpapers}</div>
+                  <div className="text-center p-2 bg-blue-50 rounded border border-blue-200">
+                    <div className="text-sm font-bold text-blue-700">{project.auditResults.workpapers}</div>
                     <div className="text-xs text-blue-800">底稿</div>
                   </div>
-                  <div className="text-center p-3 bg-green-50 rounded-lg border border-green-200">
-                    <BarChart3 className="h-5 w-5 text-green-600 mx-auto mb-1" />
-                    <div className="text-lg font-bold text-green-700">{project.auditResults.reports}</div>
+                  <div className="text-center p-2 bg-green-50 rounded border border-green-200">
+                    <div className="text-sm font-bold text-green-700">{project.auditResults.reports}</div>
                     <div className="text-xs text-green-800">报告</div>
                   </div>
                 </div>
 
                 {/* 操作按钮 */}
-                <div className="flex justify-between items-center pt-4 border-t border-gray-100">
+                <div className="flex space-x-2">
                   <Link
                     to={`/projects/${project.id}`}
-                    className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors duration-200 font-medium border border-blue-200"
+                    className="flex-1 inline-flex items-center justify-center px-3 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors duration-200 text-xs font-medium border border-blue-200"
                   >
-                    <Eye className="h-4 w-4 mr-2" />
-                    查看详情
+                    <Eye className="h-3 w-3 mr-1" />
+                    查看
                   </Link>
                   <Link
                     to={`/projects/${project.id}/audit`}
-                    className="inline-flex items-center px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors duration-200 shadow-sm font-medium"
+                    className="flex-1 inline-flex items-center justify-center px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors duration-200 text-xs font-medium"
                   >
-                    <Zap className="h-4 w-4 mr-2" />
-                    AI审计
+                    <Zap className="h-3 w-3 mr-1" />
+                    审计
                   </Link>
                 </div>
               </div>
@@ -371,7 +320,7 @@ export const ProjectList = () => {
               {!searchTerm && statusFilter === 'all' && (
                 <Link
                   to="/projects/new"
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg hover:from-slate-700 hover:to-slate-800 transition-all duration-200 shadow-sm font-medium"
+                  className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-sm font-medium"
                 >
                   <Plus className="h-5 w-5 mr-2" />
                   创建第一个项目

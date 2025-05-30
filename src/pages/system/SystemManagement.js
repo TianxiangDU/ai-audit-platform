@@ -473,71 +473,71 @@ export const SystemManagement = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="space-y-8 p-6">
+      <div className="space-y-6 p-6">
         {/* 页面标题 */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">系统管理</h1>
-              <p className="text-gray-600">管理系统用户、权限和配置</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">系统管理</h1>
+              <p className="text-gray-600 text-sm">管理系统用户、权限和配置</p>
             </div>
-            <button className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm">
-              <Plus className="h-5 w-5 mr-2" />
+            <button className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm text-sm">
+              <Plus className="h-4 w-4 mr-2" />
               新增用户
             </button>
           </div>
         </div>
 
         {/* 统计概览 */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">活跃用户</p>
-                <p className="text-2xl font-bold text-gray-900">{users.filter(u => u.status === 'active').length}</p>
-                <p className="text-sm text-green-600 font-medium">在线用户</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">活跃用户</p>
+                <p className="text-lg font-bold text-gray-900">{users.filter(u => u.status === 'active').length}</p>
+                <p className="text-xs text-green-600 font-medium">在线用户</p>
               </div>
-              <div className="bg-green-50 p-3 rounded-lg">
-                <UserCheck className="h-6 w-6 text-green-600" />
+              <div className="bg-green-50 p-2 rounded-lg">
+                <Users className="h-4 w-4 text-green-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">权限模块</p>
-                <p className="text-2xl font-bold text-gray-900">{functionPermissions.length}</p>
-                <p className="text-sm text-blue-600 font-medium">已配置</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">权限组</p>
+                <p className="text-lg font-bold text-gray-900">5</p>
+                <p className="text-xs text-blue-600 font-medium">已配置</p>
               </div>
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <Shield className="h-6 w-6 text-blue-600" />
+              <div className="bg-blue-50 p-2 rounded-lg">
+                <Shield className="h-4 w-4 text-blue-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">今日操作</p>
-                <p className="text-2xl font-bold text-gray-900">{usageLogs.filter(log => log.time.includes('2024-01-15')).length}</p>
-                <p className="text-sm text-amber-600 font-medium">操作记录</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">今日操作</p>
+                <p className="text-lg font-bold text-gray-900">156</p>
+                <p className="text-xs text-amber-600 font-medium">系统访问</p>
               </div>
-              <div className="bg-amber-50 p-3 rounded-lg">
-                <Activity className="h-6 w-6 text-amber-600" />
+              <div className="bg-amber-50 p-2 rounded-lg">
+                <Activity className="h-4 w-4 text-amber-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">系统状态</p>
-                <p className="text-2xl font-bold text-gray-900">正常</p>
-                <p className="text-sm text-green-600 font-medium">运行稳定</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">系统状态</p>
+                <p className="text-lg font-bold text-gray-900">正常</p>
+                <p className="text-xs text-green-600 font-medium">运行中</p>
               </div>
-              <div className="bg-green-50 p-3 rounded-lg">
-                <CheckCircle className="h-6 w-6 text-green-600" />
+              <div className="bg-green-50 p-2 rounded-lg">
+                <CheckCircle className="h-4 w-4 text-green-600" />
               </div>
             </div>
           </div>
@@ -547,12 +547,12 @@ export const SystemManagement = () => {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
           {/* 选项卡 */}
           <div className="border-b border-gray-200">
-            <nav className="flex space-x-8 px-8">
+            <nav className="flex space-x-8 px-6">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
+                  className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
                     activeTab === tab.id
                       ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -568,7 +568,7 @@ export const SystemManagement = () => {
           </div>
 
           {/* 内容区域 */}
-          <div className="p-8">
+          <div className="p-6">
             {renderContent()}
           </div>
         </div>

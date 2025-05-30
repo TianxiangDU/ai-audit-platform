@@ -183,71 +183,71 @@ export const ToolManagement = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="space-y-8 p-6">
+      <div className="space-y-6 p-6">
         {/* 页面标题 */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">审计工具箱</h1>
-              <p className="text-gray-600">使用专业的审计工具提升工作效率和质量</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">工具管理</h1>
+              <p className="text-gray-600 text-sm">智能审计工具集合，提升审计工作效率</p>
             </div>
-            <button className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm">
-              <Settings className="h-5 w-5 mr-2" />
-              工具设置
+            <button className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm text-sm">
+              <Target className="h-4 w-4 mr-2" />
+              工具库
             </button>
           </div>
         </div>
 
         {/* 统计概览 */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">可用工具</p>
-                <p className="text-2xl font-bold text-gray-900">{auditTools.length}</p>
-                <p className="text-sm text-green-600 font-medium">+2 新增</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">可用工具</p>
+                <p className="text-lg font-bold text-gray-900">{auditTools.length}</p>
+                <p className="text-xs text-green-600 font-medium">+2 新增</p>
               </div>
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <Target className="h-6 w-6 text-blue-600" />
+              <div className="bg-blue-50 p-2 rounded-lg">
+                <Target className="h-4 w-4 text-blue-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">高频使用</p>
-                <p className="text-2xl font-bold text-gray-900">{auditTools.filter(t => t.usage === 'high').length}</p>
-                <p className="text-sm text-blue-600 font-medium">热门工具</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">高频使用</p>
+                <p className="text-lg font-bold text-gray-900">{auditTools.filter(t => t.usage === 'high').length}</p>
+                <p className="text-xs text-blue-600 font-medium">热门工具</p>
               </div>
-              <div className="bg-green-50 p-3 rounded-lg">
-                <TrendingUp className="h-6 w-6 text-green-600" />
+              <div className="bg-green-50 p-2 rounded-lg">
+                <TrendingUp className="h-4 w-4 text-green-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">最近使用</p>
-                <p className="text-2xl font-bold text-gray-900">3</p>
-                <p className="text-sm text-amber-600 font-medium">今日使用</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">最近使用</p>
+                <p className="text-lg font-bold text-gray-900">3</p>
+                <p className="text-xs text-amber-600 font-medium">今日使用</p>
               </div>
-              <div className="bg-amber-50 p-3 rounded-lg">
-                <Clock className="h-6 w-6 text-amber-600" />
+              <div className="bg-amber-50 p-2 rounded-lg">
+                <Clock className="h-4 w-4 text-amber-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">协作工具</p>
-                <p className="text-2xl font-bold text-gray-900">5</p>
-                <p className="text-sm text-purple-600 font-medium">支持团队</p>
+                <p className="text-xs font-medium text-gray-600 mb-1">协作工具</p>
+                <p className="text-lg font-bold text-gray-900">5</p>
+                <p className="text-xs text-purple-600 font-medium">支持团队</p>
               </div>
-              <div className="bg-purple-50 p-3 rounded-lg">
-                <Users className="h-6 w-6 text-purple-600" />
+              <div className="bg-purple-50 p-2 rounded-lg">
+                <Users className="h-4 w-4 text-purple-600" />
               </div>
             </div>
           </div>
@@ -255,7 +255,7 @@ export const ToolManagement = () => {
 
         {/* 工具分类和搜索 */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-          <div className="px-8 py-6 border-b border-gray-200">
+          <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
               {/* 分类筛选 */}
               <div className="flex flex-wrap gap-2">
@@ -263,7 +263,7 @@ export const ToolManagement = () => {
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`inline-flex items-center px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200 ${
+                    className={`inline-flex items-center px-3 py-1.5 rounded-lg font-medium text-sm transition-colors duration-200 ${
                       selectedCategory === category.id
                         ? 'bg-blue-600 text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -277,27 +277,27 @@ export const ToolManagement = () => {
               
               {/* 搜索框 */}
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
                   type="text"
                   placeholder="搜索工具..."
-                  className="pl-10 w-full h-12 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  className="pl-10 w-full h-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm"
                 />
               </div>
             </div>
           </div>
 
           {/* 工具卡片网格 */}
-          <div className="p-8">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="p-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {filteredTools.map((tool) => {
                 const IconComponent = tool.icon;
                 return (
                   <div key={tool.id} className="bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 group">
-                    <div className="p-6">
+                    <div className="p-5">
                       {/* 工具头部 */}
-                      <div className="flex items-start justify-between mb-4">
-                        <div className={`p-3 rounded-lg ${getIconColorClass(tool.iconColor)}`}>
+                      <div className="flex items-start justify-between mb-3">
+                        <div className={`p-2 rounded-lg ${getIconColorClass(tool.iconColor)}`}>
                           <IconComponent className="h-6 w-6" />
                         </div>
                         <div className="flex space-x-2">

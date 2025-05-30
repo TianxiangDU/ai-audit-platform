@@ -5,6 +5,7 @@ import { Dashboard } from './pages/Dashboard';
 import { ProjectList } from './pages/projects/ProjectList';
 import { NewProject } from './pages/projects/NewProject';
 import { ProjectDetail } from './pages/projects/ProjectDetail';
+import { ProjectWorkspace } from './pages/projects/ProjectWorkspace';
 import { ProjectResults } from './pages/projects/ProjectResults';
 import { ProjectDocuments } from './pages/projects/ProjectDocuments';
 import { AuditProcess } from './pages/audit/AuditProcess';
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/projects/:id/audit-tasks" element={<AuditTasks />} />
                 <Route path="/projects/:id/results" element={<ProjectResults />} />
                 <Route path="/projects/:id/documents" element={<ProjectDocuments />} />
+                <Route path="/projects/:id/workspace" element={<ProjectWorkspace />} />
                 <Route path="/knowledge" element={<KnowledgeBase />} />
                 <Route path="/tools" element={<ToolManagement />} />
                 <Route path="/system" element={<SystemManagement />} />
