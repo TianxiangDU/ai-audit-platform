@@ -218,7 +218,7 @@ export const ProjectList = () => {
                 <div className="mb-3">
                   <div className="flex items-start justify-between mb-2">
                     <Link
-                      to={`/projects/${project.id}`}
+                      to={`/projects/${project.id}/workspace`}
                       className="text-base font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-200 line-clamp-2 flex-1 mr-2"
                     >
                       {project.name}
@@ -286,7 +286,7 @@ export const ProjectList = () => {
                 {/* 操作按钮 */}
                 <div className="flex space-x-2">
                   <Link
-                    to={`/projects/${project.id}`}
+                    to={`/projects/${project.id}/workspace`}
                     className="flex-1 inline-flex items-center justify-center px-3 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors duration-200 text-xs font-medium border border-blue-200"
                   >
                     <Eye className="h-3 w-3 mr-1" />

@@ -465,11 +465,11 @@ export const ProjectWorkspace = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link
-                to={`/projects/${id}`}
+                to="/projects"
                 className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
               >
                 <ArrowLeft className="h-5 w-5 mr-2" />
-                返回项目详情
+                返回项目列表
               </Link>
               <div className="h-6 border-l border-gray-300"></div>
               <div>
@@ -478,6 +478,20 @@ export const ProjectWorkspace = () => {
               </div>
             </div>
             <div className="flex items-center space-x-3">
+              <Link
+                to={`/projects/${id}`}
+                className="inline-flex items-center px-3 py-2 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors text-sm font-medium border border-gray-200"
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                项目详情
+              </Link>
+              <Link
+                to={`/projects/${id}/audit`}
+                className="inline-flex items-center px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+              >
+                <Bot className="h-4 w-4 mr-2" />
+                AI审计
+              </Link>
               <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(project.status)}`}>
                 {project.status}
               </span>

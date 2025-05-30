@@ -190,35 +190,35 @@ export const AuditProcess = () => {
 
   // 步骤1：选择审计范围
   const Step1SelectScope = () => (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* 选择子项目 */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="px-8 py-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200">
-          <h3 className="text-xl font-bold text-gray-900">选择子项目</h3>
-          <p className="text-gray-600 mt-1">选择需要审计的子项目范围</p>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">选择子项目</h3>
+          <p className="text-gray-600 text-sm mt-1">选择需要审计的子项目范围</p>
         </div>
-        <div className="p-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {project.subProjects.map((subProject) => (
               <div
                 key={subProject.id}
-                className={`group relative cursor-pointer transition-all duration-300 ${
+                className={`cursor-pointer transition-all duration-200 ${
                   auditTaskData.subProjectId === subProject.id
-                    ? 'transform -translate-y-2'
-                    : 'hover:-translate-y-1'
+                    ? 'transform scale-105'
+                    : 'hover:scale-105'
                 }`}
                 onClick={() => setAuditTaskData(prev => ({ ...prev, subProjectId: subProject.id }))}
               >
-                <div className={`border-2 rounded-2xl p-6 transition-all duration-300 ${
+                <div className={`border-2 rounded-lg p-4 transition-all duration-200 ${
                   auditTaskData.subProjectId === subProject.id
-                    ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-xl'
-                    : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-lg'
+                    ? 'border-blue-500 bg-blue-50 shadow-md'
+                    : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
                 }`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold text-gray-900 text-lg">{subProject.name}</h4>
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-semibold text-gray-900">{subProject.name}</h4>
                     {auditTaskData.subProjectId === subProject.id && (
                       <div className="bg-blue-500 rounded-full p-1">
-                        <CheckCircle className="h-5 w-5 text-white" />
+                        <CheckCircle className="h-4 w-4 text-white" />
                       </div>
                     )}
                   </div>
@@ -319,24 +319,24 @@ export const AuditProcess = () => {
 
   // 步骤2：关联审计资料
   const Step2AssociateFiles = () => (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* 关联项目已有文件 */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="px-8 py-6 bg-gradient-to-r from-green-50 to-teal-50 border-b border-gray-200">
-          <h3 className="text-xl font-bold text-gray-900">关联项目资料</h3>
-          <p className="text-gray-600 mt-1">选择项目中已有的相关文档</p>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">关联项目资料</h3>
+          <p className="text-gray-600 text-sm mt-1">选择项目中已有的相关文档</p>
         </div>
-        <div className="p-8">
-          <div className="space-y-4">
+        <div className="p-6">
+          <div className="space-y-3">
             {projectDocuments.map((doc) => {
               const isSelected = auditTaskData.associatedFiles.includes(doc.id);
               return (
                 <div
                   key={doc.id}
-                  className={`group border rounded-2xl p-6 cursor-pointer transition-all duration-300 ${
+                  className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                     isSelected 
-                      ? 'border-blue-300 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-md transform -translate-y-1' 
-                      : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm hover:-translate-y-0.5'
+                      ? 'border-blue-300 bg-blue-50 shadow-sm' 
+                      : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
                   }`}
                   onClick={() => {
                     if (isSelected) {
@@ -353,20 +353,20 @@ export const AuditProcess = () => {
                   }}
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className={`p-3 rounded-2xl ${isSelected ? 'bg-blue-100' : 'bg-gray-100'}`}>
-                        <FileText className={`h-8 w-8 ${isSelected ? 'text-blue-600' : 'text-gray-500'}`} />
+                    <div className="flex items-center space-x-3">
+                      <div className={`p-2 rounded-lg ${isSelected ? 'bg-blue-100' : 'bg-gray-100'}`}>
+                        <FileText className={`h-6 w-6 ${isSelected ? 'text-blue-600' : 'text-gray-500'}`} />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900 text-lg">{doc.name}</h4>
-                        <p className="text-gray-600 mt-1">
+                        <h4 className="font-semibold text-gray-900">{doc.name}</h4>
+                        <p className="text-gray-600 text-sm">
                           大小：{formatFileSize(doc.size)}
                         </p>
                       </div>
                     </div>
                     {isSelected && (
-                      <div className="bg-blue-500 rounded-full p-2">
-                        <CheckCircle className="h-6 w-6 text-white" />
+                      <div className="bg-blue-500 rounded-full p-1">
+                        <CheckCircle className="h-5 w-5 text-white" />
                       </div>
                     )}
                   </div>
@@ -378,19 +378,19 @@ export const AuditProcess = () => {
       </div>
 
       {/* 上传新文件 */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="px-8 py-6 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-200">
-          <h3 className="text-xl font-bold text-gray-900">上传新文件</h3>
-          <p className="text-gray-600 mt-1">上传审计所需的其他文档资料</p>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">上传新文件</h3>
+          <p className="text-gray-600 text-sm mt-1">上传审计所需的其他文档资料</p>
         </div>
-        <div className="p-8">
-          <div className="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-blue-400 hover:bg-blue-50 transition-all duration-300 group">
-            <div className="bg-blue-100 rounded-full p-4 w-20 h-20 mx-auto mb-6 group-hover:bg-blue-200 transition-colors duration-300">
-              <Upload className="h-12 w-12 text-blue-600 mx-auto" />
+        <div className="p-6">
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 hover:bg-blue-50 transition-all duration-200">
+            <div className="bg-blue-100 rounded-full p-3 w-16 h-16 mx-auto mb-4">
+              <Upload className="h-10 w-10 text-blue-600 mx-auto" />
             </div>
             <div>
               <label htmlFor="audit-file-upload" className="cursor-pointer">
-                <span className="text-xl font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-200">
+                <span className="text-lg font-semibold text-blue-600 hover:text-blue-700 transition-colors">
                   点击上传审计相关文件
                 </span>
                 <input
@@ -402,10 +402,10 @@ export const AuditProcess = () => {
                 />
               </label>
             </div>
-            <p className="text-gray-600 mt-3 text-lg">
+            <p className="text-gray-600 mt-2">
               支持 PDF、Word、Excel、图片等格式
             </p>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-500 mt-1">
               或拖拽文件到此区域
             </p>
           </div>
@@ -416,63 +416,63 @@ export const AuditProcess = () => {
 
   // 步骤3：执行AI审计
   const Step3ExecuteAudit = () => (
-    <div className="h-full flex bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* 左侧文档预览 */}
-      <div className="w-1/2 border-r border-gray-200 flex flex-col">
-        <div className="px-8 py-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200">
-          <h3 className="text-xl font-bold text-gray-900">文档预览</h3>
-          <p className="text-gray-600 mt-1">AI正在分析的文档内容</p>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">文档预览</h3>
+          <p className="text-gray-600 text-sm mt-1">AI正在分析的文档内容</p>
         </div>
-        <div className="flex-1 p-8">
-          <div className="h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border-2 border-dashed border-gray-300 flex items-center justify-center">
+        <div className="p-6">
+          <div className="h-96 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
             <div className="text-center">
-              <div className="bg-blue-100 rounded-full p-6 w-24 h-24 mx-auto mb-6">
-                <FileText className="h-12 w-12 text-blue-600 mx-auto" />
+              <div className="bg-blue-100 rounded-full p-4 w-16 h-16 mx-auto mb-4">
+                <FileText className="h-8 w-8 text-blue-600 mx-auto" />
               </div>
-              <p className="text-gray-600 text-xl font-semibold mb-2">文档预览区域</p>
-              <p className="text-gray-500">选择文件进行预览</p>
+              <p className="text-gray-600 font-medium mb-1">文档预览区域</p>
+              <p className="text-gray-500 text-sm">选择文件进行预览</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* 右侧审计过程 */}
-      <div className="w-1/2 flex flex-col">
-        <div className="px-8 py-6 bg-gradient-to-r from-purple-50 to-pink-50 border-b border-gray-200">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="px-6 py-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-bold text-gray-900">AI审计执行</h3>
-              <p className="text-gray-600 mt-1">智能分析审计逻辑</p>
+              <h3 className="text-lg font-semibold text-gray-900">AI审计执行</h3>
+              <p className="text-gray-600 text-sm mt-1">智能分析审计逻辑</p>
             </div>
-            <button className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 transform hover:scale-105 shadow-lg font-semibold">
-              <Play className="h-5 w-5 mr-2" />
+            <button className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+              <Play className="h-4 w-4 mr-2" />
               开始审计
             </button>
           </div>
         </div>
-        <div className="flex-1 p-8 overflow-auto">
-          <div className="space-y-6">
+        <div className="p-6 max-h-96 overflow-auto">
+          <div className="space-y-4">
             {auditTaskData.selectedLogics.map((logicId, index) => {
               const logic = Object.values(auditModules)
                 .flatMap(module => module.logics)
                 .find(l => l.id === logicId);
               
               return (
-                <div key={logicId} className="border border-gray-200 rounded-2xl p-6 bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="font-semibold text-gray-900 text-lg">{logic?.name}</h4>
+                <div key={logicId} className="border border-gray-200 rounded-lg p-4 bg-white">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-semibold text-gray-900">{logic?.name}</h4>
                     <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800 border border-blue-200 font-medium">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                      <span className="inline-flex items-center px-2 py-1 rounded text-xs bg-blue-100 text-blue-800 border border-blue-200 font-medium">
                         执行中
                       </span>
                     </div>
                   </div>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{logic?.description}</p>
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200">
-                    <div className="flex items-center space-x-3">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
-                      <span className="text-blue-700 font-medium">正在分析相关文档内容...</span>
+                  <p className="text-gray-600 text-sm mb-3">{logic?.description}</p>
+                  <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+                    <div className="flex items-center space-x-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                      <span className="text-blue-700 text-sm font-medium">正在分析相关文档内容...</span>
                     </div>
                   </div>
                 </div>
@@ -486,46 +486,46 @@ export const AuditProcess = () => {
 
   // 步骤4：生成审计线索
   const Step4ConfirmClues = () => (
-    <div className="space-y-8">
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="px-8 py-6 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-200">
-          <h3 className="text-xl font-bold text-gray-900">AI生成的审计线索</h3>
-          <p className="text-gray-600 mt-1">请审核和确认AI发现的审计线索</p>
+    <div className="space-y-6">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">AI生成的审计线索</h3>
+          <p className="text-gray-600 text-sm mt-1">请审核和确认AI发现的审计线索</p>
         </div>
-        <div className="p-8">
-          <div className="space-y-6">
+        <div className="p-6">
+          <div className="space-y-4">
             {/* 模拟生成的审计线索 */}
             {[1, 2, 3].map((index) => (
-              <div key={index} className="border border-gray-200 rounded-2xl p-6 bg-white shadow-sm hover:shadow-md transition-all duration-300">
+              <div key={index} className="border border-gray-200 rounded-lg p-4 bg-white hover:shadow-sm transition-all duration-200">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-3">
+                    <div className="flex items-center space-x-2 mb-3">
                       <div className="bg-orange-100 rounded-full p-2">
-                        <AlertTriangle className="h-5 w-5 text-orange-600" />
+                        <AlertTriangle className="h-4 w-4 text-orange-600" />
                       </div>
-                      <h4 className="font-semibold text-gray-900 text-lg">
+                      <h4 className="font-semibold text-gray-900">
                         线索 {index}：预算编制存在超标情况
                       </h4>
                     </div>
-                    <p className="text-gray-600 mb-4 leading-relaxed">
+                    <p className="text-gray-600 mb-3 text-sm">
                       通过分析预算清单发现，部分材料单价超过市场指导价15%，建议进一步核实价格来源。
                     </p>
-                    <div className="flex items-center space-x-4 text-sm">
-                      <span className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full border border-blue-200 font-medium">
+                    <div className="flex items-center space-x-3 text-xs">
+                      <span className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 rounded border border-blue-200 font-medium">
                         相关文档：工程预算清单.xlsx
                       </span>
-                      <span className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 rounded-full border border-green-200 font-medium">
+                      <span className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 rounded border border-green-200 font-medium">
                         置信度：85%
                       </span>
                     </div>
                   </div>
-                  <div className="flex space-x-3 ml-6">
-                    <button className="inline-flex items-center px-4 py-2 bg-green-50 border border-green-300 text-green-700 rounded-xl hover:bg-green-100 transition-colors duration-200 font-medium">
-                      <Check className="h-4 w-4 mr-2" />
+                  <div className="flex space-x-2 ml-4">
+                    <button className="inline-flex items-center px-3 py-2 bg-green-50 border border-green-300 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium">
+                      <Check className="h-4 w-4 mr-1" />
                       确认
                     </button>
-                    <button className="inline-flex items-center px-4 py-2 bg-red-50 border border-red-300 text-red-700 rounded-xl hover:bg-red-100 transition-colors duration-200 font-medium">
-                      <X className="h-4 w-4 mr-2" />
+                    <button className="inline-flex items-center px-3 py-2 bg-red-50 border border-red-300 text-red-700 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium">
+                      <X className="h-4 w-4 mr-1" />
                       拒绝
                     </button>
                   </div>
@@ -539,23 +539,23 @@ export const AuditProcess = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* 页面头部 */}
-      <div className="relative overflow-hidden bg-white shadow-xl border-b border-gray-200">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 opacity-90"></div>
-        <div className="relative px-8 py-8">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="space-y-6 p-6">
+        {/* 页面头部 */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
               <button
-                onClick={() => navigate(`/projects/${id}`)}
-                className="inline-flex items-center text-blue-100 hover:text-white transition-colors duration-200 font-medium"
+                onClick={() => navigate(`/projects/${id}/workspace`)}
+                className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors font-medium"
               >
                 <ArrowLeft className="h-5 w-5 mr-2" />
-                返回项目详情
+                返回工作空间
               </button>
+              <div className="h-6 border-l border-gray-300"></div>
               <div>
-                <h1 className="text-3xl font-bold text-white">AI智能审计工具</h1>
-                <p className="text-blue-100 text-lg">{project.name}</p>
+                <h1 className="text-2xl font-bold text-gray-900">AI智能审计</h1>
+                <p className="text-gray-600 text-sm mt-1">{project.name}</p>
               </div>
             </div>
             
@@ -564,24 +564,24 @@ export const AuditProcess = () => {
               {steps.map((step, index) => (
                 <div key={step.id} className="flex items-center">
                   <div
-                    className={`group flex items-center justify-center w-12 h-12 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
+                    className={`group flex items-center justify-center w-10 h-10 rounded-lg border-2 cursor-pointer transition-all duration-300 ${
                       currentStep === step.id
-                        ? 'border-white bg-white text-blue-600 shadow-lg transform scale-110'
+                        ? 'border-blue-500 bg-blue-500 text-white shadow-md'
                         : currentStep > step.id
-                        ? 'border-green-400 bg-green-400 text-white shadow-md'
-                        : 'border-blue-200 bg-blue-100 bg-opacity-20 text-blue-100 hover:border-white hover:bg-white hover:bg-opacity-10'
+                        ? 'border-green-500 bg-green-500 text-white'
+                        : 'border-gray-300 bg-white text-gray-400 hover:border-gray-400 hover:text-gray-600'
                     }`}
                     onClick={() => handleStepClick(step.id)}
                   >
                     {currentStep > step.id ? (
-                      <CheckCircle className="h-6 w-6" />
+                      <CheckCircle className="h-5 w-5" />
                     ) : (
-                      <step.icon className="h-6 w-6" />
+                      <step.icon className="h-5 w-5" />
                     )}
                   </div>
                   {index < steps.length - 1 && (
                     <div className={`w-8 h-1 mx-2 rounded-full transition-all duration-300 ${
-                      currentStep > step.id ? 'bg-green-400' : 'bg-blue-200'
+                      currentStep > step.id ? 'bg-green-500' : 'bg-gray-200'
                     }`} />
                   )}
                 </div>
@@ -589,59 +589,48 @@ export const AuditProcess = () => {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* 当前步骤内容 */}
-      <div className="p-8">
-        <div className="mb-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              {steps[currentStep - 1]?.title}
-            </h2>
-            <p className="text-gray-600 text-lg">
-              {steps[currentStep - 1]?.description}
-            </p>
-          </div>
+        {/* 当前步骤标题 */}
+        <div className="text-center">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">
+            {steps[currentStep - 1]?.title}
+          </h2>
+          <p className="text-gray-600">
+            {steps[currentStep - 1]?.description}
+          </p>
         </div>
 
+        {/* 步骤内容 */}
         <div className="max-w-6xl mx-auto">
-          {currentStep === 3 ? (
-            <div className="min-h-96">
-              {renderStepContent()}
-            </div>
-          ) : (
-            <div className="min-h-96">
-              {renderStepContent()}
-            </div>
-          )}
+          {renderStepContent()}
         </div>
 
         {/* 步骤导航按钮 */}
-        <div className="flex justify-between mt-12 max-w-6xl mx-auto">
+        <div className="flex justify-between max-w-6xl mx-auto">
           <button
             onClick={handlePrevStep}
             disabled={currentStep === 1}
-            className={`inline-flex items-center px-8 py-4 border-2 border-gray-300 rounded-xl font-semibold transition-all duration-200 ${
+            className={`inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg font-medium transition-all duration-200 ${
               currentStep === 1
-                ? 'text-gray-400 cursor-not-allowed'
-                : 'text-gray-700 hover:bg-gray-50 hover:border-gray-400 transform hover:-translate-y-1'
+                ? 'text-gray-400 cursor-not-allowed bg-gray-50'
+                : 'text-gray-700 hover:bg-gray-50 hover:border-gray-400 bg-white'
             }`}
           >
-            <ArrowLeft className="h-5 w-5 mr-2" />
+            <ArrowLeft className="h-4 w-4 mr-2" />
             上一步
           </button>
           
           <button
             onClick={handleNextStep}
             disabled={currentStep === steps.length}
-            className={`inline-flex items-center px-8 py-4 border-2 border-transparent rounded-xl font-semibold transition-all duration-200 transform hover:-translate-y-1 ${
+            className={`inline-flex items-center px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
               currentStep === steps.length
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl'
+                : 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm'
             }`}
           >
             下一步
-            <ArrowRight className="h-5 w-5 ml-2" />
+            <ArrowRight className="h-4 w-4 ml-2" />
           </button>
         </div>
       </div>
