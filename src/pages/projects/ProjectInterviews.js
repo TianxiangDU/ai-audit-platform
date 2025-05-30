@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
-  Mic, MicOff, Upload, Play, Pause, Stop, Download, 
+  Mic, MicOff, Upload, Play, Pause, Square, Download, 
   FileAudio, Users, Clock, Calendar, Eye, Trash2,
   User, Volume2, FileText, Settings, RefreshCw,
   CheckCircle, AlertTriangle, Filter, Search, Plus,
@@ -433,7 +433,7 @@ export const ProjectInterviews = () => {
                       onClick={stopRecording}
                       className="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                     >
-                      <Stop className="h-5 w-5 mr-2" />
+                      <Square className="h-5 w-5 mr-2" />
                       停止
                     </button>
                   </>
