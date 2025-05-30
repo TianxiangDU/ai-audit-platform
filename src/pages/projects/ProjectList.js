@@ -284,20 +284,13 @@ export const ProjectList = () => {
                 </div>
 
                 {/* 操作按钮 */}
-                <div className="flex space-x-2">
+                <div className="flex">
                   <Link
                     to={`/projects/${project.id}/workspace`}
-                    className="flex-1 inline-flex items-center justify-center px-3 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors duration-200 text-xs font-medium border border-blue-200"
+                    className="w-full inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium"
                   >
-                    <Eye className="h-3 w-3 mr-1" />
-                    查看
-                  </Link>
-                  <Link
-                    to={`/projects/${project.id}/audit`}
-                    className="flex-1 inline-flex items-center justify-center px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors duration-200 text-xs font-medium"
-                  >
-                    <Zap className="h-3 w-3 mr-1" />
-                    审计
+                    <Eye className="h-4 w-4 mr-2" />
+                    进入工作空间
                   </Link>
                 </div>
               </div>
