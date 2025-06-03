@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Bell, User, Settings, Bot, Menu, X } from 'lucide-react';
 import { AIProcessDrawer } from '../ui/AIProcessDrawer';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/new-logo.svg';
 
 export const Header = () => {
   const location = useLocation();
