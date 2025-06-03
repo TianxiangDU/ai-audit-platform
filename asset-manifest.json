@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/ai-audit-platform/static/css/main.15943ba2.css",
-    "main.js": "/ai-audit-platform/static/js/main.af2cc0d1.js",
-    "index.html": "/ai-audit-platform/index.html",
-    "static/media/logo.svg": "/ai-audit-platform/static/media/logo.817b2623475cca1b5aa632e5e92128b0.svg"
+    "main.js": "/ai-audit-platform/static/js/main.f2a6c114.js",
+    "static/media/new-logo.svg": "/ai-audit-platform/static/media/new-logo.69a6f07285dc393475cf551b946fe258.svg",
+    "index.html": "/ai-audit-platform/index.html"
   },
   "entrypoints": [
     "static/css/main.15943ba2.css",
-    "static/js/main.af2cc0d1.js"
+    "static/js/main.f2a6c114.js"
   ]
 }
