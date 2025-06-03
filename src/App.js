@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { Dashboard } from './pages/Dashboard';
 import { ProjectList } from './pages/projects/ProjectList';
@@ -27,7 +27,7 @@ function App() {
     <ErrorBoundary>
       <AppProvider>
         <NotificationProvider>
-          <Router basename="/ai-audit-platform">
+          <Router>
             <Routes>
               {/* 分享上传页面 - 不使用Layout */}
               <Route path="/share/upload/:shareId" element={<ShareUpload />} />
