@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Bell, User, Settings, Bot, Menu, X } from 'lucide-react';
 import { AIProcessDrawer } from '../ui/AIProcessDrawer';
+import logo from '../../assets/logo.svg';
 
 export const Header = () => {
   const location = useLocation();
@@ -28,8 +29,17 @@ export const Header = () => {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center space-x-8">
-              <h1 className="text-lg sm:text-xl font-semibold text-gray-900">AI智慧工程审计平台</h1>
+            {/* 左侧Logo和公司信息 */}
+            <div className="flex items-center space-x-3">
+              <img 
+                src={logo} 
+                alt="青矩未来Logo" 
+                className="h-8 w-8 sm:h-10 sm:w-10"
+              />
+              <div className="flex flex-col">
+                <h1 className="text-lg sm:text-xl font-bold text-gray-900 leading-tight">青矩未来</h1>
+                <p className="text-xs sm:text-sm text-gray-600 leading-tight">AI智慧工程审计平台</p>
+              </div>
             </div>
             
             {/* 桌面端操作按钮 */}
@@ -75,7 +85,7 @@ export const Header = () => {
                 <Link
                   key={tab.path}
                   to={tab.path}
-                  className={`py-3 px-1 border-b-2 font-medium text-sm ${
+                  className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
                     isActiveTab(tab.path)
                       ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'

@@ -194,7 +194,10 @@ export const Dashboard = () => {
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">基于人工智能的智能化审计解决方案</h1>
+            <h1 className="text-2xl font-bold text-gray-900">
+              <span className="text-blue-600">青矩未来</span> · 基于人工智能的智能化审计解决方案
+            </h1>
+            <p className="text-gray-600 mt-2">让审计更智能、更高效、更精准</p>
           </div>
         </div>
         
